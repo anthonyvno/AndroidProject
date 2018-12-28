@@ -8,4 +8,5 @@ class Meme(val id: String,
            val titel: String,
            val afbeelding: String,
            val beschrijving: String,
+           val categorie: String,
            var comments: List<Comment>): Serializable
