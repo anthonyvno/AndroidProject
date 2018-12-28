@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".activities.MainActivity"
+      tools:ignore="MissingDefaultResource">
+
+    <item android:id="@+id/action_mapView"
+          android:icon="@drawable/ic_launcher_foreground"
+          android:title="@string/zoeken"
+          app:showAsAction="ifRoom"/>
+
+    <item
+
+            android:id="@+id/action_search"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:title="@string/all_memes"
+            app:showAsAction="ifRoom"/>
+
+</menu>
