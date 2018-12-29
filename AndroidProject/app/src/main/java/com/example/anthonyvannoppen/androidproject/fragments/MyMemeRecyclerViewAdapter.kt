@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.anthonyvannoppen.androidproject.R
+import com.example.anthonyvannoppen.androidproject.domain.Meme
+import com.squareup.picasso.Picasso
 
-
-import com.example.anthonyvannoppen.androidproject.fragments.MemeListFragment.OnListFragmentInteractionListener
-import com.example.anthonyvannoppen.androidproject.fragments.dummy.DummyContent.DummyItem
 
 import kotlinx.android.synthetic.main.fragment_meme.view.*
 
@@ -18,19 +18,21 @@ import kotlinx.android.synthetic.main.fragment_meme.view.*
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyMemeRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,
-    private val mListener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<MyMemeRecyclerViewAdapter.ViewHolder>() {
+class MyMemeRecyclerViewAdapter(private val parentActivity: MemeListFragment,
+                                    private val memes: List<Meme>) :
+    RecyclerView.Adapter<MyMemeRecyclerViewAdapter.ViewHolder>() {
 
-    private val mOnClickListener: View.OnClickListener
+    private val onClickListener: View.OnClickListener
 
     init {
-        mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
+        onClickListener = View.OnClickListener { v ->
+            // Every view has a tag that can be used to store data related to that view
+            // Here each item in the RecyclerView keeps a reference to the comic it represents.
+            // This allows us to reuse a single listener for all items in the list
+            val item = v.tag as Meme
+
+            parentActivity.startNewActivityForDetail(item)
+
         }
     }
 
@@ -41,24 +43,23 @@ class MyMemeRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
+        val meme = memes[position]
+        holder.titel.text = meme.titel
+        holder.op.text = meme.op
+        Picasso.get().load(meme.afbeelding).into(holder.afbeelding)
 
-        with(holder.mView) {
-            tag = item
-            setOnClickListener(mOnClickListener)
+        with(holder.itemView) {
+            tag = meme // Save the meme represented by this view
+            setOnClickListener(onClickListener)
         }
     }
 
-    override fun getItemCount(): Int = mValues.size
+    override fun getItemCount() = memes.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.item_number
-        val mContentView: TextView = mView.content
-
-        override fun toString(): String {
-            return super.toString() + " '" + mContentView.text + "'"
-        }
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val titel: TextView = view.text_meme_titel
+        val op: TextView = view.text_meme_op
+        val afbeelding: ImageView = view.image_meme_afbeelding
     }
 }
+

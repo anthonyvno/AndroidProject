@@ -3,4 +3,7 @@
     <string name="all_memes">To list</string>
     <string name="zoeken">Search a meme</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

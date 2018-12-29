@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="titels">
+        <item>Cereal Guy</item>
+        <item>F!@# Yeah</item>
+        <item>Forever Alone</item>
+    </string-array>
+
+    <string-array name="beschrijvingen">
+        <item>Cereal Guy is a stick figure character commonly used on image boards and discussion forums as a multi-purpose reaction face.</item>
+        <item>F!@# Yeah is a series of four-pane cartoon strips featuring a stick figure looking rather self-complacent and quite frankly, for all the right reasons. Originally posted via /b/ board on February 11, 2010, these cartoons illustrate all sorts of triumphant moments in our daily lives that make us feel awesome, like when you wake up a few seconds before the morning alarm goes off. This phenomenon can be also seen as the antithesis to Rageguy comics, another four-pane series originating from 4chan circa late 2008.</item>
+        <item>Forever Alone is an exploitable rage comic character that is used to express loneliness and disappointment with life. The face has also been used as an advice animal and inspired the creation of the snowclone template \"Forever an X.\"</item>
+    </string-array>
+
+    <string-array name="afbeeldingen">
+        <item>https://www.antagonist.nl/blog/wp-content/uploads/2014/01/meme_bad_luck_wouter.jpg</item>
+        <item>https://i.dailymail.co.uk/i/pix/2015/12/18/22/2F7E462E00000578-3366348-image-a-50_1450476544605.jpg</item>
+        <item>https://quizizz.zendesk.com/hc/article_attachments/115002501069/1024x1024.jpg</item>
+    </string-array>
+
+    <string-array name="categorieen">
+        <item>Games</item>
+        <item>Animals</item>
+        <item>Sports</item>
+    </string-array>
+
+    <string-array name="ops">
+        <item>anth</item>
+        <item>sand</item>
+        <item>neill</item>
+    </string-array>
+</resources>
