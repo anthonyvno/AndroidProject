@@ -46,10 +46,10 @@ class MyMemeRecyclerViewAdapter(private val parentActivity: MemeListFragment,
         val meme = memes[position]
         holder.titel.text = meme.titel
         holder.op.text = meme.op
-        Picasso.get().load("https://quizizz.zendesk.com/hc/article_attachments/115002501069/1024x1024.jpg").into(holder.afbeelding)
+        Picasso.get().load(meme.afbeelding).into(holder.afbeelding)
 
         with(holder.itemView) {
-            tag = meme // Save the comic represented by this view
+            tag = meme // Save the meme represented by this view
             setOnClickListener(onClickListener)
         }
     }

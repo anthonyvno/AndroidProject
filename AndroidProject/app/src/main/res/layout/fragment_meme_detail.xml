@@ -4,6 +4,7 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
+                                             android:layout_marginTop="56dp"
                                              tools:context=".fragments.MemeDetailFragment"
                                              >
 
@@ -47,14 +48,13 @@
     <ImageView
             android:id="@+id/image_detail_afbeelding"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:contentDescription="Afbeelding van meme"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
             tools:srcCompat="@tools:sample/avatars"
             app:layout_constraintTop_toBottomOf="@+id/text_detail_titel"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp" android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
