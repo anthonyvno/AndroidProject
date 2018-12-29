@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.example.anthonyvannoppen.androidproject.fragments.MemeListFragment
-import com.example.anthonyvannoppen.androidproject.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,11 +13,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_main, MainFragment.newInstance())
                 .commitNow()
-        }
+        }*/
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container_main, MemeListFragment())
+            .addToBackStack("main")
+            .commit()
     }
 
     @Suppress("DEPRECATION")

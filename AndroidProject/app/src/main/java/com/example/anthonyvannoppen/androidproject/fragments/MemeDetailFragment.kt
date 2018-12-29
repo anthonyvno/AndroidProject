@@ -10,11 +10,8 @@ import android.view.ViewGroup
 
 import com.example.anthonyvannoppen.androidproject.R
 import com.example.anthonyvannoppen.androidproject.domain.Meme
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_meme_detail.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -29,7 +26,7 @@ class MemeDetailFragment : Fragment() {
 
     private lateinit var meme:Meme
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments!!.let {
@@ -39,7 +36,7 @@ class MemeDetailFragment : Fragment() {
             }
         }
 
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +50,10 @@ class MemeDetailFragment : Fragment() {
 
         // Opvullen van de content met de gekozen meme
         meme.let {
+            rootView.text_detail_titel.text = it.titel
+            rootView.text_detail_beschrijving.text = it.beschrijving
+            rootView.text_detail_op.text = "By "+it.op
+            Picasso.get().load(it.afbeelding).fit().into(rootView.image_detail_afbeelding)
             /*rootView.name.text = it.name
             rootView.description.text = it.description
             rootView.comic_image.setImageResource*/

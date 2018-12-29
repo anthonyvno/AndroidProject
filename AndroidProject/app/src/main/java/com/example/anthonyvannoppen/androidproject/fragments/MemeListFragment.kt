@@ -1,18 +1,18 @@
 package com.example.anthonyvannoppen.androidproject.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.anthonyvannoppen.androidproject.R
 
-import com.example.anthonyvannoppen.androidproject.fragments.dummy.DummyContent
-import com.example.anthonyvannoppen.androidproject.fragments.dummy.DummyContent.DummyItem
+import com.example.anthonyvannoppen.androidproject.domain.Comment
+import com.example.anthonyvannoppen.androidproject.domain.Meme
+
+
+import kotlinx.android.synthetic.main.fragment_meme_list.*
 
 /**
  * A fragment representing a list of Items.
@@ -21,17 +21,13 @@ import com.example.anthonyvannoppen.androidproject.fragments.dummy.DummyContent.
  */
 class MemeListFragment : Fragment() {
 
-    // TODO: Customize parameters
-    private var columnCount = 1
 
-    private var listener: OnListFragmentInteractionListener? = null
+    private var memes: List<Meme>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
+
     }
 
     override fun onCreateView(
@@ -40,7 +36,7 @@ class MemeListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_meme_list, container, false)
 
-        // Set the adapter
+        /*// Set the adapter
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = when {
@@ -49,52 +45,58 @@ class MemeListFragment : Fragment() {
                 }
                 adapter = MyMemeRecyclerViewAdapter(DummyContent.ITEMS, listener)
             }
-        }
+        }*/
         return view
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+
+    override fun onStart() {
+        super.onStart()
+
+        memes = createMemes()
+
+
+        fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, memes!!)
+        //fragment_meme_list.layoutManager = LinearLayoutManager(this)
+    }
+    private fun createMemes(): List<Meme> {
+        val memeList = mutableListOf<Meme>()
+
+        val resources = activity!!.applicationContext.resources
+        val titels = resources.getStringArray(R.array.titels)
+        val beschrijvingen = resources.getStringArray(R.array.beschrijvingen)
+        val ops = resources.getStringArray(R.array.ops)
+        val afbeeldingen = resources.getStringArray(R.array.afbeeldingen)
+        val categorieen = resources.getStringArray(R.array.categorieen)
+
+        for (i in 0 until titels.size) {
+            val legelijst = listOf<Comment>()
+            val theComic = Meme(ops[i], titels[i], afbeeldingen[i], beschrijvingen[i],categorieen[i],legelijst)
+            memeList.add(theComic)
         }
+
+        return memeList
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson
-     * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+    fun startNewActivityForDetail(item: Meme) {
+        val memeDetailFragment = MemeDetailFragment()
+        this.fragmentManager!!.beginTransaction()
+            .replace(R.id.container_main,memeDetailFragment)
+            .addToBackStack(null)
+            .commit()
+        memeDetailFragment.addObject(item)
+        //startActivity(intent)
     }
 
     companion object {
 
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
+        fun newInstance(list: ArrayList<Meme>): MemeDetailFragment {
+            val args = Bundle()
+            args.putSerializable("list", list)
+            val fragment = MemeDetailFragment()
+            fragment.arguments = args
 
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            MemeListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+            return fragment
+        }
     }
 }

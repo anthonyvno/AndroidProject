@@ -3,7 +3,7 @@ package com.example.anthonyvannoppen.androidproject.domain
 import java.io.Serializable
 
 
-class Meme(val id: String,
+class Meme(
            val op: String,
            val titel: String,
            val afbeelding: String,
