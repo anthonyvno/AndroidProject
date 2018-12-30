@@ -16,6 +16,8 @@ import com.example.anthonyvannoppen.androidproject.R
 import com.example.anthonyvannoppen.androidproject.domain.Comment
 import com.example.anthonyvannoppen.androidproject.domain.Meme
 import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 import kotlinx.android.synthetic.main.fragment_meme_list.*
@@ -29,10 +31,11 @@ class MemeListFragment : Fragment() {
 
     private lateinit var viewModel: MemeViewModel
     private var memes: List<Meme>? = null
+    private lateinit var database:DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        database = FirebaseDatabase.getInstance().getReference("memes")
 
     }
 
@@ -81,10 +84,11 @@ class MemeListFragment : Fragment() {
             }
         }*/
 
-        viewModel.getMemes().observe(this, Observer {
+        /*viewModel.getMemes().observe(this, Observer {
             fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, it!!.sortedBy { meme -> meme.titel })
-        })
+        })*/
 
+        database.addValueEventListener()
         fragment_meme_list.layoutManager= LinearLayoutManager(activity)
 
     }
