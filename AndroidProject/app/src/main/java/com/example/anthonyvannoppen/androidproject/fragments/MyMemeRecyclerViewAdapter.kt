@@ -1,5 +1,6 @@
 package com.example.anthonyvannoppen.androidproject.fragments
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -42,10 +43,11 @@ class MyMemeRecyclerViewAdapter(private val parentActivity: MemeListFragment,
         return ViewHolder(view)
     }
 
+    @SuppressLint("NewApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val meme = memes[position]
         holder.titel.text = meme.titel
-        holder.op.text = meme.op
+        holder.op.text = "By " + meme.op
         Picasso.get().load(meme.afbeelding).into(holder.afbeelding)
 
         with(holder.itemView) {

@@ -1,5 +1,6 @@
 package com.example.anthonyvannoppen.androidproject.fragments
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -10,7 +11,9 @@ import android.view.ViewGroup
 
 import com.example.anthonyvannoppen.androidproject.R
 import com.example.anthonyvannoppen.androidproject.domain.Meme
+import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_meme_detail.*
 import kotlinx.android.synthetic.main.fragment_meme_detail.view.*
 
 /**
@@ -25,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_meme_detail.view.*
 class MemeDetailFragment : Fragment() {
 
     private lateinit var meme:Meme
+    private lateinit var viewModel:MemeViewModel
 
     /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,8 @@ class MemeDetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_meme_detail, container, false)
+        viewModel = ViewModelProviders.of(this).get(MemeViewModel::class.java)
+
         val rootView = inflater.inflate(R.layout.fragment_meme_detail, container, false)
 
         //activity?.toolbar_layout?.title = comic.name
@@ -54,15 +60,20 @@ class MemeDetailFragment : Fragment() {
             rootView.text_detail_beschrijving.text = it.beschrijving
             rootView.text_detail_op.text = "By "+it.op
             Picasso.get().load(it.afbeelding).fit().into(rootView.image_detail_afbeelding)
-            /*rootView.name.text = it.name
-            rootView.description.text = it.description
-            rootView.comic_image.setImageResource*/
+
         }
         return rootView
 
 
     }
 
+    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        text_detail_titel.text = meme.titel
+        text_detail_beschrijving.text = meme.beschrijving
+        text_detail_op.text = "By "+meme.op
+        Picasso.get().load(meme.afbeelding).fit().into(image_detail_afbeelding)
+    }*/
     override fun onResume() {
         super.onResume()
         // hier komen de intents van de mogelijke buttons
