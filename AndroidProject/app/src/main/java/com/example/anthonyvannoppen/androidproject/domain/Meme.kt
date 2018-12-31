@@ -6,10 +6,10 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 @Parcelize
-class Meme(
-    @field:Json(name = "op")val op: String,
-    @field:Json(name = "titel")val titel: String,
-    @field:Json(name = "afbeelding")val afbeelding: String,
-    @field:Json(name = "beschrijving")val beschrijving: String,
-    @field:Json(name = "categorie")val categorie: String,
-    @field:Json(name = "comments")var comments: List<Comment>): Parcelable,Serializable
+class Meme(@field:Json(name = "MemeID")val id: String,
+    @field:Json(name = "Op")val op: String,
+    @field:Json(name = "Titel")val titel: String,
+    @field:Json(name = "Afbeelding")val afbeelding: String,
+    @field:Json(name = "Beschrijving")val beschrijving: String,
+    @field:Json(name = "Categorie")val categorie: String,
+    @field:Json(name = "Comments")var comments: List<Comment>): Parcelable,Serializable

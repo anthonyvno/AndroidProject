@@ -7,10 +7,10 @@ import retrofit2.http.Path
 
 interface MemeApi {
 
-    @GET("memes/{icao}")
+    @GET("api/memes/{icao}")
     fun getMeme(@Path("icao") icao : String?): Observable<Meme>
 
-    @GET("memes.json")
+    @GET("api/memes")
     fun getAllMemes(): Observable<List<Meme>>
 
 }

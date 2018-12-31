@@ -88,6 +88,7 @@ class MemeListFragment : Fragment() {
         fragment_meme_list.layoutManager= LinearLayoutManager(activity)
 
     }
+    //hardcode data
     /*private fun createMemes(): List<Meme> {
         val memeList = mutableListOf<Meme>()
 

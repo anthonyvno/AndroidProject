@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 @Parcelize
-class Comment(
-    @field:Json(name = "op")val op: String,
-    @field:Json(name = "tekst")val tekst: String) : Parcelable,Serializable
+class Comment(@field:Json(name = "CommentID")val id: String,
+    @field:Json(name = "Op")val op: String,
+    @field:Json(name = "Tekst")val tekst: String) : Parcelable,Serializable
