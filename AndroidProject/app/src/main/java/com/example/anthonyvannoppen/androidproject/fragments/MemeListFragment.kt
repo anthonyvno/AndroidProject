@@ -1,7 +1,12 @@
 package com.example.anthonyvannoppen.androidproject.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +15,7 @@ import com.example.anthonyvannoppen.androidproject.R
 
 import com.example.anthonyvannoppen.androidproject.domain.Comment
 import com.example.anthonyvannoppen.androidproject.domain.Meme
+import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
 
 
 import kotlinx.android.synthetic.main.fragment_meme_list.*
@@ -21,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_meme_list.*
  */
 class MemeListFragment : Fragment() {
 
-
+    private lateinit var viewModel: MemeViewModel
     private var memes: List<Meme>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +40,8 @@ class MemeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        viewModel = ViewModelProviders.of(activity!!).get(MemeViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_meme_list, container, false)
 
         /*// Set the adapter
@@ -49,17 +57,39 @@ class MemeListFragment : Fragment() {
         return view
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStart() {
         super.onStart()
 
-        memes = createMemes()
-
-
-        fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, memes!!)
+        //memes = createMemes() //hardcoded data
+        //fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, memes!!)
         //fragment_meme_list.layoutManager = LinearLayoutManager(this)
+
+
+        /*if(memes==null){
+            viewModel.getMemes().observe(this, android.arch.lifecycle.Observer {
+                val pairs = it!!.map{ meme -> meme.titel to meme}
+                val sorted = pairs.sortedWith(compareBy { meme -> meme.first })
+                fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, sorted.map { meme -> meme.second })
+            })
+
+        } else{
+            if(memes!!.isNotEmpty()){
+                fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, memes!!)
+            }else{
+                fragment_meme_list.visibility = View.GONE
+            }
+        }*/
+
+        viewModel.getMemes().observe(this, Observer {
+            fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, it!!.sortedBy { meme -> meme.titel })
+        })
+
+        fragment_meme_list.layoutManager= LinearLayoutManager(activity)
+
     }
-    private fun createMemes(): List<Meme> {
+    //hardcode data
+    /*private fun createMemes(): List<Meme> {
         val memeList = mutableListOf<Meme>()
 
         val resources = activity!!.applicationContext.resources
@@ -77,7 +107,7 @@ class MemeListFragment : Fragment() {
 
         return memeList
     }
-
+*/
     fun startNewActivityForDetail(item: Meme) {
         val memeDetailFragment = MemeDetailFragment()
         this.fragmentManager!!.beginTransaction()

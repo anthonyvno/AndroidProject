@@ -1,12 +1,16 @@
 package com.example.anthonyvannoppen.androidproject
 
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.example.anthonyvannoppen.androidproject.fragments.MemeListFragment
+import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    //private lateinit var viewModel :  MemeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.container_main, MemeListFragment())
             .addToBackStack("main")
             .commit()
+        //viewModel = ViewModelProviders.of(this).get(MemeViewModel::class.java)
     }
 
     @Suppress("DEPRECATION")
