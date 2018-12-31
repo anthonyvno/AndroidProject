@@ -1,4 +1,4 @@
 package com.example.anthonyvannoppen.androidproject.utils
 
-const val BASE_URL: String = "https://androidproject-8c47d.firebaseio.com/"
+const val BASE_URL: String = "https://androidservice20181231020710.azurewebsites.net/"
 

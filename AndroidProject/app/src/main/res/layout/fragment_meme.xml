@@ -21,6 +21,7 @@ app:cardElevation="6dp">
             android:layout_width="145dp"
             android:layout_height="145dp"
             android:scaleType="center"
+            android:contentDescription="meme_afbeelding"
             tools:srcCompat="@tools:sample/avatars" />
     <TextView
             android:text="TextView"
