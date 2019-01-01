@@ -12,7 +12,7 @@
 
     <item
 
-            android:id="@+id/action_search"
+            android:id="@+id/action_add"
             android:icon="@drawable/ic_launcher_foreground"
             android:title="@string/all_memes"
             app:showAsAction="ifRoom"/>

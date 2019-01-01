@@ -23,6 +23,7 @@
         <item>Games</item>
         <item>Animals</item>
         <item>Sports</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="ops">
@@ -30,4 +31,6 @@
         <item>sand</item>
         <item>neill</item>
     </string-array>
+
+
 </resources>

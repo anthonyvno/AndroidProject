@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.example.anthonyvannoppen.androidproject.fragments.MemeAddFragment
 import com.example.anthonyvannoppen.androidproject.fragments.MemeListFragment
 import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
 
@@ -40,6 +41,13 @@ class MainActivity : AppCompatActivity() {
         R.id.action_home -> {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_main, MemeListFragment())
+                .addToBackStack(null)
+                .commit()
+            true
+        }
+        R.id.action_add -> {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container_main, MemeAddFragment())
                 .addToBackStack(null)
                 .commit()
             true

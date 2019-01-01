@@ -14,8 +14,6 @@ import javax.inject.Singleton
 interface ViewModelComponent {
 
     /**
-     * Injects the dependencies into the specified MetarViewModel.
-     * @param metarViewModel the [MetarViewModel] in which to inject the dependencies.
-     */
+     * Injects the dependencies into the specified viewmodel*/
     fun inject(memeViewModel: MemeViewModel)
 }

@@ -28,7 +28,6 @@ class MemeViewModel: InjectedViewModel(){
      * Represents a disposable resources
      */
     private var subscription: Disposable
-
     init {
         subscription = memeApi.getAllMemes()
             //we tell it to fetch the data on background by
@@ -41,6 +40,7 @@ class MemeViewModel: InjectedViewModel(){
                 { result -> onRetrieveMemeSuccess(result) },
                 { error -> onRetrieveMemeError(error) }
             )
+
     }
 
     private fun onRetrieveMemeError(error: Throwable) {
@@ -74,6 +74,9 @@ class MemeViewModel: InjectedViewModel(){
         return memes
     }
 
+    fun postMeme(meme:Meme){
+        memeApi.addMeme(meme)
+    }
 
 
 }
