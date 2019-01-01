@@ -1,9 +1,13 @@
 package com.example.anthonyvannoppen.androidproject.fragments
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +17,7 @@ import android.widget.Spinner
 import com.example.anthonyvannoppen.androidproject.R
 import com.example.anthonyvannoppen.androidproject.domain.Comment
 import com.example.anthonyvannoppen.androidproject.domain.Meme
+import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
 import kotlinx.android.synthetic.main.fragment_meme_add.*
 
 
@@ -28,6 +33,7 @@ import kotlinx.android.synthetic.main.fragment_meme_add.*
 class MemeAddFragment : Fragment() {
 
     private lateinit var meme: Meme
+    private lateinit var viewModel: MemeViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,21 +55,31 @@ class MemeAddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        viewModel = ViewModelProviders.of(activity!!).get(MemeViewModel::class.java)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_meme_add, container, false)
     }
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStart() {
         super.onStart()
 
-        val titel = text_add_titel.text.toString()
-        val op = text_add_op.text.toString()
-        val beschrijving = text_add_beschrijving.text.toString()
-        val afbeelding = text_add_afbeelding.text.toString()
-        val categorie = spinner_add_categorie.selectedItem.toString()
-        meme = Meme("",op,titel,afbeelding,beschrijving,categorie, listOf())
 
+        button_add_submit.setOnClickListener{
+            val titel = text_add_titel.text.toString()
+            val op = text_add_op.text.toString()
+            val beschrijving = text_add_beschrijving.text.toString()
+            val afbeelding = text_add_afbeelding.text.toString()
+            val categorie = spinner_add_categorie.selectedItem.toString()
+            meme = Meme("",op,titel,afbeelding,beschrijving,categorie, listOf())
+            Log.d("",meme.toString())
+           viewModel.postMeme(meme)
+            val memeListFragment =  MemeListFragment()
+            this.fragmentManager!!.beginTransaction()
+                .replace(R.id.container_main, memeListFragment)
+                .addToBackStack(null)
+                .commit()
+
+        }
     }
 
 

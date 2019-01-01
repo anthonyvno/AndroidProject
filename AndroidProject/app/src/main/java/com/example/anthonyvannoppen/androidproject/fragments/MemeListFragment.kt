@@ -81,9 +81,14 @@ class MemeListFragment : Fragment() {
             }
         }*/
 
-        viewModel.getMemes().observe(this, Observer {
-            fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, it!!.sortedBy { meme -> meme.titel })
-        })
+        if(memes==null){
+            viewModel.getMemes().observe(this, Observer {
+                fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, it!!.sortedBy { meme -> meme.titel })
+            })
+        } else {
+            fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, memes!!)
+        }
+
 
         fragment_meme_list.layoutManager= LinearLayoutManager(activity)
 
@@ -116,6 +121,10 @@ class MemeListFragment : Fragment() {
             .commit()
         memeDetailFragment.addObject(item)
         //startActivity(intent)
+    }
+
+    fun sort(meme:List<Meme>){
+        this.memes = meme
     }
 
     companion object {
