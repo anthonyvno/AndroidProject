@@ -47,6 +47,7 @@ class MemeDetailFragment : Fragment() {
             rootView.text_detail_titel.text = it.titel
             rootView.text_detail_beschrijving.text = it.beschrijving
             rootView.text_detail_op.text = "By "+it.op
+            rootView.text_detail_categorie.text = "- "+it.categorie
             Picasso.get().load(it.afbeelding).fit().into(rootView.image_detail_afbeelding)
 
         }

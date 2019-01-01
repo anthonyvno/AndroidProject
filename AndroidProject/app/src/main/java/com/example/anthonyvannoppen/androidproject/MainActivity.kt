@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val cat=resources.getStringArray(R.array.categorieen)[position]
 
-                if(cat != "All"){
+                if(cat != "Any"){
                     viewModel.getMemes().observe(act, Observer {
                         val sortedMemes=it!!.filter{ meme ->
                             meme.categorie.contains(cat)
