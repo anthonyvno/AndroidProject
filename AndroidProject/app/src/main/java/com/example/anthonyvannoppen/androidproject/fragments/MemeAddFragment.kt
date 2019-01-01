@@ -38,7 +38,7 @@ class MemeAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val spinner: Spinner = view.findViewById(R.id.spinner_add_categorie)
-// Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             context!!,
             R.array.categorieen,
@@ -55,6 +55,7 @@ class MemeAddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //init the viewmodel
         viewModel = ViewModelProviders.of(activity!!).get(MemeViewModel::class.java)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_meme_add, container, false)
@@ -63,7 +64,7 @@ class MemeAddFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-
+        //ophalen van de gegevens en dan toevoegen van de nieuwe meme
         button_add_submit.setOnClickListener{
             val titel = this.text_add_titel.text.toString()
             val op = this.text_add_op.text.toString()

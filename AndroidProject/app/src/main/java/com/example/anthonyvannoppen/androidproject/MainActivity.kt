@@ -27,11 +27,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
         viewModel = ViewModelProviders.of(this).get(MemeViewModel::class.java)
 
-        /*if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container_main, MainFragment.newInstance())
-                .commitNow()
-        }*/
+
         supportFragmentManager.beginTransaction()
             .add(R.id.container_main, MemeListFragment())
             .addToBackStack("main")
@@ -41,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //supportActionBar!!.setDisplayShowTitleEnabled(false)
         menuInflater.inflate(R.menu.maintoolbar,menu)
-        val fragment = this
+        val act = this
         val item = menu!!.findItem(R.id.action_sort)
         val spinner = item.actionView as Spinner
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -49,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter=adapter
 
+        //De keuze in de dropdownmenu zal een nieuw list fragment aanmaken en de gesorteerde lijst meegeven
         spinner.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -57,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 val cat=resources.getStringArray(R.array.categorieen)[position]
 
                 if(cat != "All"){
-                    viewModel.getMemes().observe(fragment, Observer {
+                    viewModel.getMemes().observe(act, Observer {
                         val sortedMemes=it!!.filter{ meme ->
                             meme.categorie.contains(cat)
                         }
@@ -85,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
+    //navigatie toolbar
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_home -> {
             supportFragmentManager.beginTransaction()

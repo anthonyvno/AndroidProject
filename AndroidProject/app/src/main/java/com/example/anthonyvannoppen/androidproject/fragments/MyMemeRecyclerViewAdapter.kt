@@ -15,9 +15,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_meme.view.*
 
 /**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a [Meme] and makes a call to the
  * specified [OnListFragmentInteractionListener].
- * TODO: Replace the implementation with code for your data type.
  */
 class MyMemeRecyclerViewAdapter(private val parentActivity: MemeListFragment,
                                     private val memes: List<Meme>) :
@@ -32,7 +31,7 @@ class MyMemeRecyclerViewAdapter(private val parentActivity: MemeListFragment,
             // This allows us to reuse a single listener for all items in the list
             val item = v.tag as Meme
 
-            parentActivity.startNewActivityForDetail(item)
+            parentActivity.startNewFragmentForDetail(item)
 
         }
     }
@@ -43,11 +42,13 @@ class MyMemeRecyclerViewAdapter(private val parentActivity: MemeListFragment,
         return ViewHolder(view)
     }
 
+    //vul de viewholder
     @SuppressLint("NewApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val meme = memes[position]
         holder.titel.text = meme.titel
         holder.op.text = "By " + meme.op
+        //Picasso laadt een image via een URL string
         Picasso.get().load(meme.afbeelding).into(holder.afbeelding)
 
         with(holder.itemView) {

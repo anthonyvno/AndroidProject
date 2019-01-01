@@ -30,29 +30,17 @@ class MemeDetailFragment : Fragment() {
     private lateinit var meme:Meme
     private lateinit var viewModel:MemeViewModel
 
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments!!.let {
-            if (it.containsKey(ARG_MEME)) {
-                // Load de meme
-                meme = it.getSerializable(ARG_MEME) as Meme
-            }
-        }
-
-    }*/
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_meme_detail, container, false)
+
+        //initiate the viewmodel
         viewModel = ViewModelProviders.of(this).get(MemeViewModel::class.java)
+        // Inflate the layout for this fragment
 
         val rootView = inflater.inflate(R.layout.fragment_meme_detail, container, false)
 
-        //activity?.toolbar_layout?.title = comic.name
 
         // Opvullen van de content met de gekozen meme
         meme.let {
@@ -67,13 +55,7 @@ class MemeDetailFragment : Fragment() {
 
     }
 
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        text_detail_titel.text = meme.titel
-        text_detail_beschrijving.text = meme.beschrijving
-        text_detail_op.text = "By "+meme.op
-        Picasso.get().load(meme.afbeelding).fit().into(image_detail_afbeelding)
-    }*/
+
     override fun onResume() {
         super.onResume()
         // hier komen de intents van de mogelijke buttons
