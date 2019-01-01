@@ -46,9 +46,7 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
 
     //Logger functionality with beautifull logging : https://github.com/orhanobut/logger
     implementation 'com.orhanobut:logger:2.2.0'
@@ -62,7 +60,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
     //gebruiken recyclerview voor list
     implementation 'com.android.support:design:28.0.0'
     //picasso (url into image)
@@ -109,11 +106,17 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
 
-    testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:28.0.0'
+
+    //espresso & testing
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+
+    testImplementation 'junit:junit:4.12'
     //implementation 'com.google.firebase:firebase-database:16.0.1'
     //kapt 'com.google.firebase:firebase-database:16.0.1:15.0.0'
 }

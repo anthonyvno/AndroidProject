@@ -20,7 +20,7 @@
     </string-array>
 
     <string-array name="categorieen">
-        <item>All</item>
+        <item>Any</item>
         <item>Animals</item>
         <item>Sports</item>
         <item>Games</item>
