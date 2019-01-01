@@ -20,10 +20,10 @@
     </string-array>
 
     <string-array name="categorieen">
-        <item>Games</item>
+        <item>All</item>
         <item>Animals</item>
         <item>Sports</item>
-        <item>Other</item>
+        <item>Games</item>
     </string-array>
 
     <string-array name="ops">

@@ -7,15 +7,17 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.example.anthonyvannoppen.androidproject.R
 
 import com.example.anthonyvannoppen.androidproject.domain.Comment
 import com.example.anthonyvannoppen.androidproject.domain.Meme
 import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
+import android.widget.AdapterView.OnItemSelectedListener
 
 
 import kotlinx.android.synthetic.main.fragment_meme_list.*
@@ -40,6 +42,7 @@ class MemeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
 
         viewModel = ViewModelProviders.of(activity!!).get(MemeViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_meme_list, container, false)
@@ -126,6 +129,8 @@ class MemeListFragment : Fragment() {
     fun sort(meme:List<Meme>){
         this.memes = meme
     }
+
+
 
     companion object {
 

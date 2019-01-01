@@ -65,11 +65,11 @@ class MemeAddFragment : Fragment() {
 
 
         button_add_submit.setOnClickListener{
-            val titel = text_add_titel.text.toString()
-            val op = text_add_op.text.toString()
-            val beschrijving = text_add_beschrijving.text.toString()
-            val afbeelding = text_add_afbeelding.text.toString()
-            val categorie = spinner_add_categorie.selectedItem.toString()
+            val titel = this.text_add_titel.text.toString()
+            val op = this.text_add_op.text.toString()
+            val beschrijving = this.text_add_beschrijving.text.toString()
+            val afbeelding = this.text_add_afbeelding.text.toString()
+            val categorie = this.spinner_add_categorie.selectedItem.toString()
             meme = Meme("",op,titel,afbeelding,beschrijving,categorie, listOf())
             Log.d("",meme.toString())
            viewModel.postMeme(meme)
