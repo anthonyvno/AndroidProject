@@ -1,22 +1,31 @@
 package com.example.anthonyvannoppen.androidproject
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.example.anthonyvannoppen.androidproject.fragments.MemeAddFragment
 import com.example.anthonyvannoppen.androidproject.fragments.MemeListFragment
+import com.example.anthonyvannoppen.androidproject.fragments.MyMemeRecyclerViewAdapter
 import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
+import kotlinx.android.synthetic.main.fragment_meme_list.*
 
 class MainActivity : AppCompatActivity() {
 
-    //private lateinit var viewModel :  MemeViewModel
+    private lateinit var viewModel :  MemeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         setSupportActionBar(findViewById(R.id.my_toolbar))
+        viewModel = ViewModelProviders.of(this).get(MemeViewModel::class.java)
 
         /*if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -27,16 +36,56 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.container_main, MemeListFragment())
             .addToBackStack("main")
             .commit()
-        //viewModel = ViewModelProviders.of(this).get(MemeViewModel::class.java)
     }
 
-    @Suppress("DEPRECATION")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        //supportActionBar!!.setDisplayShowTitleEnabled(false)
         menuInflater.inflate(R.menu.maintoolbar,menu)
+        val fragment = this
+        val item = menu!!.findItem(R.id.action_sort)
+        val spinner = item.actionView as Spinner
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        val adapter = ArrayAdapter.createFromResource(this, R.array.categorieen, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter=adapter
+
+        spinner.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val cat=resources.getStringArray(R.array.categorieen)[position]
+
+                if(cat != "All"){
+                    viewModel.getMemes().observe(fragment, Observer {
+                        val sortedMemes=it!!.filter{ meme ->
+                            meme.categorie.contains(cat)
+                        }
+                        val memeListFragment = MemeListFragment()
+                        memeListFragment.sort(sortedMemes)
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container_main, memeListFragment)
+                            .addToBackStack(null)
+                            .commit()
+                    })
+                }else{
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container_main, MemeListFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        }
+
 
         return true
     }
+
+
+
+
+
+
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_home -> {
             supportFragmentManager.beginTransaction()

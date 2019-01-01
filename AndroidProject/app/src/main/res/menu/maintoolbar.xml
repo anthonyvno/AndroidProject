@@ -6,15 +6,20 @@
       tools:ignore="MissingDefaultResource">
 
     <item android:id="@+id/action_home"
-          android:icon="@drawable/ic_launcher_foreground"
+          android:icon="@drawable/baseline_list_black_48dp"
           android:title="@string/zoeken"
+
           app:showAsAction="ifRoom"/>
 
     <item
 
             android:id="@+id/action_add"
-            android:icon="@drawable/ic_launcher_foreground"
+            android:icon="@drawable/baseline_add_black_18dp"
             android:title="@string/all_memes"
             app:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_sort"
+
+          app:actionViewClass="android.widget.Spinner"
+          app:showAsAction="collapseActionView" android:title="Choose category"/>
 
 </menu>
