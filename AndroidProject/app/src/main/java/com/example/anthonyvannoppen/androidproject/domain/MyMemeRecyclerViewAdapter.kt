@@ -1,4 +1,4 @@
-package com.example.anthonyvannoppen.androidproject.fragments
+package com.example.anthonyvannoppen.androidproject.domain
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.anthonyvannoppen.androidproject.R
-import com.example.anthonyvannoppen.androidproject.domain.Meme
+import com.example.anthonyvannoppen.androidproject.fragments.MemeListFragment
 import com.squareup.picasso.Picasso
 
 
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_meme.view.*
  * specified [OnListFragmentInteractionListener].
  */
 class MyMemeRecyclerViewAdapter(private val parentActivity: MemeListFragment,
-                                    private val memes: List<Meme>) :
+                                private val memes: List<Meme>) :
     RecyclerView.Adapter<MyMemeRecyclerViewAdapter.ViewHolder>() {
 
     private val onClickListener: View.OnClickListener

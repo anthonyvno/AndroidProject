@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.example.anthonyvannoppen.androidproject.base.InjectedViewModel
+import com.example.anthonyvannoppen.androidproject.domain.Comment
 import com.example.anthonyvannoppen.androidproject.domain.Meme
 import com.example.anthonyvannoppen.androidproject.network.MemeApi
 import com.orhanobut.logger.Logger
@@ -75,7 +76,29 @@ class MemeViewModel: InjectedViewModel(){
     }
 
     fun postMeme(meme:Meme){
-        memeApi.addMeme(meme)
+       /* memeApi.addMeme(meme).
+            subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result -> Log.v("POSTED ARTICLE", "" + meme ) },
+                { error -> Log.e("ERROR", error.message ) })*/
+
+        memeApi.addMeme(meme.op,meme.titel,meme.categorie,meme.beschrijving,meme.afbeelding).
+            subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result -> Log.v("POSTED ARTICLE", "" + meme ) },
+                { error -> Log.e("ERROR", error.message ) })
+
+    }
+    fun postComment(comment: Comment){
+        //memeApi.addComment(comment)
+        memeApi.addComment(comment.op,comment.tekst,comment.meme.toInt()).
+            subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result -> Log.v("POSTED ARTICLE", "" + comment ) },
+                { error -> Log.e("ERROR", error.message ) })
     }
 
 
