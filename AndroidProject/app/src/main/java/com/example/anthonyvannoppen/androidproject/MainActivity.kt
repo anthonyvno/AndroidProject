@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -13,9 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.example.anthonyvannoppen.androidproject.fragments.MemeAddFragment
 import com.example.anthonyvannoppen.androidproject.fragments.MemeListFragment
-import com.example.anthonyvannoppen.androidproject.fragments.MyMemeRecyclerViewAdapter
 import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
-import kotlinx.android.synthetic.main.fragment_meme_list.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack("main")
             .commit()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //supportActionBar!!.setDisplayShowTitleEnabled(false)

@@ -75,6 +75,7 @@ class MemeAddFragment : Fragment() {
             Log.d("",meme.toString())
            viewModel.postMeme(meme)
             val memeListFragment =  MemeListFragment()
+
             this.fragmentManager!!.beginTransaction()
                 .replace(R.id.container_main, memeListFragment)
                 .addToBackStack(null)

@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.*
 
 import com.example.anthonyvannoppen.androidproject.R
 
 import com.example.anthonyvannoppen.androidproject.domain.Meme
+import com.example.anthonyvannoppen.androidproject.domain.MyMemeRecyclerViewAdapter
 import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
 
 
@@ -26,6 +28,9 @@ class MemeListFragment : Fragment() {
 
     private lateinit var viewModel: MemeViewModel
     private var memes: List<Meme>? = null
+
+    private lateinit var adapter: MyMemeRecyclerViewAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,16 +52,31 @@ class MemeListFragment : Fragment() {
         //vul de recyclerview aan de hand van alle items of  gesorteerd per categorie
         if(memes==null){
             viewModel.getMemes().observe(this, Observer {
-                fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, it!!.sortedBy { meme -> meme.titel })
+                Log.d("",it.toString())
+                adapter = MyMemeRecyclerViewAdapter(
+                    this,
+                    it!!.sortedBy { meme -> meme.titel })
+                fragment_meme_list.adapter = adapter
+                adapter.notifyDataSetChanged()
+
+
             })
         } else {
-            fragment_meme_list.adapter = MyMemeRecyclerViewAdapter(this, memes!!)
+            adapter = MyMemeRecyclerViewAdapter(this, memes!!)
+            fragment_meme_list.adapter = adapter
+
         }
 
 
         fragment_meme_list.layoutManager= LinearLayoutManager(activity)
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        //adapter.notifyDataSetChanged()
+    }
+
 
     fun startNewFragmentForDetail(item: Meme) {
         val memeDetailFragment = MemeDetailFragment()
