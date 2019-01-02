@@ -2,6 +2,9 @@ package com.example.anthonyvannoppen.androidproject
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -10,6 +13,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import com.example.anthonyvannoppen.androidproject.fragments.MemeAddFragment
 import com.example.anthonyvannoppen.androidproject.fragments.MemeListFragment
 import com.example.anthonyvannoppen.androidproject.ui.MemeViewModel
@@ -24,12 +28,23 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
         viewModel = ViewModelProviders.of(this).get(MemeViewModel::class.java)
 
+        /*if(isNetworkAvailable()){
+            Toast.makeText(this, "No internet connection",Toast.LENGTH_SHORT)
+        }*/
 
         supportFragmentManager.beginTransaction()
             .add(R.id.container_main, MemeListFragment())
             .addToBackStack("main")
             .commit()
     }
+
+    /*private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
+    }*/
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -82,13 +97,13 @@ class MainActivity : AppCompatActivity() {
 
     //navigatie toolbar
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_home -> {
+        /*R.id.action_home -> {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_main, MemeListFragment())
                 .addToBackStack(null)
                 .commit()
             true
-        }
+        }*/
         R.id.action_add -> {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_main, MemeAddFragment())
