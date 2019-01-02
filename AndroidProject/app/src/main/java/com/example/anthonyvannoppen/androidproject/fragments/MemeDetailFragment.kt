@@ -89,6 +89,8 @@ class MemeDetailFragment : Fragment() {
             viewModel.postComment(comment)
             comments!!.add(comment)
             //refresh de recyclerview
+            tekst_detail_commentOp.setText("")
+            tekst_detail_commentTekst.setText("")
             adapter.notifyItemInserted(adapter.itemCount)
 
         }
