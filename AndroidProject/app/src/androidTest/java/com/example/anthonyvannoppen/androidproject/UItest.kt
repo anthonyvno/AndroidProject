@@ -24,8 +24,9 @@ class UItest {
     @Test
     fun memeList_onSelectMeme_showsCorrectMemeInfo(){
 
-        onView(withId(R.id.action_home)).perform(click())
-
+        //onView(withId(R.id.action_home)).perform(click())
+        onView(withId(R.id.action_sort)).perform(click())
+        onData(anything()).atPosition(0).perform(click())
         onView(withId(R.id.fragment_meme_list))
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,click()))
 
@@ -55,7 +56,7 @@ class UItest {
      fun createNewMeme(){
          //maak nieuwe meme
          onView(withId(R.id.action_add)).perform(click())
-         onView(withId(R.id.text_add_titel)).perform(typeText("Mfw exams"))
+         onView(withId(R.id.text_add_titel)).perform(typeText("test"))
          android.support.test.espresso.Espresso.closeSoftKeyboard()
          onView(withId(R.id.text_add_op)).perform(typeText("test"))
          android.support.test.espresso.Espresso.closeSoftKeyboard()
@@ -65,11 +66,33 @@ class UItest {
          android.support.test.espresso.Espresso.closeSoftKeyboard()
          onView(withId(R.id.button_add_submit)).perform(click())
          //check of deze in de recyclerview zit
-         onView(withId(R.id.fragment_meme_list)).check(matches(hasDescendant(withText("Mfw exams"))))
+         onView(withId(R.id.fragment_meme_list)).check(matches(hasDescendant(withText("test"))))
 
 
 
      }
+
+    @Test
+    fun postNewComment(){
+        //onView(withId(R.id.action_home)).perform(click())
+        onView(withId(R.id.action_sort)).perform(click())
+        onData(anything()).atPosition(0).perform(click())
+        onView(withId(R.id.fragment_meme_list))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1,click()))
+        onView(withId(R.id.tekst_detail_commentOp)).perform(typeText("pim"))
+        android.support.test.espresso.Espresso.closeSoftKeyboard()
+        onView(withId(R.id.tekst_detail_commentTekst)).perform(typeText("pim"))
+        android.support.test.espresso.Espresso.closeSoftKeyboard()
+        onView(withId(R.id.button_detail_commentSubmit)).perform(click())
+        android.support.test.espresso.Espresso.pressBack()
+        onView(withId(R.id.fragment_meme_list))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0,click()))
+        onView(withId(R.id.comment_list)).check(matches(hasDescendant(withText("pim"))))
+
+
+
+
+    }
 
 }
 

@@ -51,16 +51,17 @@ class MemeListFragment : Fragment() {
 
         //vul de recyclerview aan de hand van alle items of  gesorteerd per categorie
         if(memes==null){
-            viewModel.getMemes().observe(this, Observer {
-                Log.d("",it.toString())
-                adapter = MyMemeRecyclerViewAdapter(
-                    this,
-                    it!!.sortedBy { meme -> meme.titel })
-                fragment_meme_list.adapter = adapter
-                adapter.notifyDataSetChanged()
+            if(fragment_meme_list.adapter==null){
+                viewModel.getMemes().observe(this, Observer {
+                    adapter = MyMemeRecyclerViewAdapter(
+                        this,
+                        it!!.sortedBy { meme -> meme.titel })
+                    fragment_meme_list.adapter = adapter
+                })
+            } else {
+                fragment_meme_list.adapter!!.notifyDataSetChanged()
+            }
 
-
-            })
         } else {
             adapter = MyMemeRecyclerViewAdapter(this, memes!!)
             fragment_meme_list.adapter = adapter

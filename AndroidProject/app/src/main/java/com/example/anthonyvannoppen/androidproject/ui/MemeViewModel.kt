@@ -76,12 +76,6 @@ class MemeViewModel: InjectedViewModel(){
     }
 
     fun postMeme(meme:Meme){
-       /* memeApi.addMeme(meme).
-            subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result -> Log.v("POSTED ARTICLE", "" + meme ) },
-                { error -> Log.e("ERROR", error.message ) })*/
 
         memeApi.addMeme(meme.op,meme.titel,meme.categorie,meme.beschrijving,meme.afbeelding).
             subscribeOn(Schedulers.io())
@@ -90,9 +84,21 @@ class MemeViewModel: InjectedViewModel(){
                 { result -> Log.v("POSTED ARTICLE", "" + meme ) },
                 { error -> Log.e("ERROR", error.message ) })
 
+        memeApi.getAllMemes()
+            //we tell it to fetch the data on background by
+            .subscribeOn(Schedulers.io())
+            //we like the fetched data to be displayed on the MainTread (UI)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { onRetrieveMemeStart() }
+            .doOnTerminate { onRetrieveMemeFinish() }
+            .subscribe(
+                { result -> onRetrieveMemeSuccess(result) },
+                { error -> onRetrieveMemeError(error) }
+            )
+
+
     }
     fun postComment(comment: Comment){
-        //memeApi.addComment(comment)
         memeApi.addComment(comment.op,comment.tekst,comment.meme.toInt()).
             subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

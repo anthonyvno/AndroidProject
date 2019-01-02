@@ -34,7 +34,7 @@ class MemeDetailFragment : Fragment() {
     private lateinit var meme: Meme
     private lateinit var viewModel: MemeViewModel
     private lateinit var comment: Comment
-    private lateinit var  comments: ArrayList<Comment>
+    private var  comments: MutableList<Comment>? = null
     private lateinit var adapter: MyCommentRecyclerViewAdapter
 
     override fun onCreateView(
@@ -66,12 +66,17 @@ class MemeDetailFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        comments = meme.comments as ArrayList<Comment>
+        if(meme.comments.isNotEmpty()){
+            comments = meme.comments as MutableList<Comment>?
+        } else {
+            comments = mutableListOf<Comment>()
+        }
+
         // fill the recyclerview
         adapter =
                 MyCommentRecyclerViewAdapter(
                     this,
-                    meme.comments
+                    comments!!
                 )
         comment_list.adapter = adapter
         comment_list.layoutManager = LinearLayoutManager(activity)
@@ -82,7 +87,7 @@ class MemeDetailFragment : Fragment() {
                 tekst_detail_commentTekst.text.toString(),
                 meme.id)
             viewModel.postComment(comment)
-            comments.add(comment)
+            comments!!.add(comment)
             //refresh de recyclerview
             adapter.notifyItemInserted(adapter.itemCount)
 
